@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <!-- page title -->
+  <head>
+    <title>Firebase POC</title>
+  </head>
+
+  <!-- form -->
+  <body>
+    <form id="sign-in-form" action="#">
+      <input type="text" name="phone-number" id="phone-number" />
+      <button id="sign-in-button">Send OTP</button>
+    </form>
+
+    <!-- firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>
+
+    <!-- firebase setup -->
+    <script>
+      firebase.initializeApp({
+        apiKey: 'AIzaSyB1RJ3HamM6ey7tK3ZVQMunI8AdH_R9600',
+        authDomain: 'foyerstay-97.firebaseapp.com',
+        databaseURL: 'https://foyerstay-97.firebaseio.com',
+        projectId: 'foyerstay-97',
+        storageBucket: 'foyerstay-97.appspot.com',
+        messagingSenderId: '21163867355',
+        appId: '1:21163867355:web:1178056edc0adfead6e0fe',
+        measurementId: 'G-3EWVGJ06CE',
+      });
+    </script>
+
+    <script>
+      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+        size: 'invisible',
+        callback: function (response) {
+          console.log('i got called!');
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          onSignInSubmit();
+        },
+      });
+    </script>
+  </body>
+</html>

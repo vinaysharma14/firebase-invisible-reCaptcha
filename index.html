@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phone Authentication with invisible ReCaptcha</title>
+  </head>
+  <body>
+    <form id="sign-in-form" action="#">
+      <div>
+        <input type="text" id="phone-number" />
+        <label for="phone-number">Enter your phone number...</label>
+      </div>
+
+      <button id="sign-in-button">
+        Sign-in
+      </button>
+    </form>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>
+
+    <script>
+      firebase.initializeApp({
+        apiKey: 'xxx',
+        authDomain: 'xxx',
+        databaseURL: 'xxx',
+        projectId: 'xxx',
+        storageBucket: 'xxx',
+        messagingSenderId: 'xxx',
+        appId: 'xxx',
+        measurementId: 'xxx',
+      });
+    </script>
+
+    <script type="text/javascript">
+      window.onload = function () {
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+          size: 'invisible',
+          callback: () => {
+            alert('I got called!');
+          },
+        });
+
+        recaptchaVerifier.render().then(function (widgetId) {
+          window.recaptchaWidgetId = widgetId;
+        });
+      };
+    </script>
+  </body>
+</html>
